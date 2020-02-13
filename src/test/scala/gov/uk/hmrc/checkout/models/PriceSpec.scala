@@ -13,8 +13,16 @@ class PriceSpec extends AnyWordSpec with Matchers {
       Price(10, CurrencyUnit.Penny) + Price(0.9, CurrencyUnit.Pound) shouldBe(Price(1, CurrencyUnit.Pound))
     }
 
+    "be able to be multiplied" in {
+      Price(10, CurrencyUnit.Penny) * 3 shouldBe Price(30, CurrencyUnit.Penny)
+    }
+
+    "be able to be subtracted" in {
+      Price(1, CurrencyUnit.Pound) - Price(50, CurrencyUnit.Penny) shouldBe (Price(0.50, CurrencyUnit.Pound))
+    }
+
     "be able to be converted from Pound to Penny" in {
-      Price(2.34, CurrencyUnit.Pound).inPennies() shouldBe(Price(234, CurrencyUnit.Penny))
+      Price(2.34, CurrencyUnit.Pound) shouldBe(Price(234, CurrencyUnit.Penny))
     }
 
     "be able to be converted from Penny to Pound" in {

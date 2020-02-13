@@ -5,6 +5,11 @@ import scala.util.Try
 final case class Price(amount: BigDecimal, unit: CurrencyUnit) {
 
   def +(otherPrice: Price): Price = Price(inPennies().amount + otherPrice.inPennies().amount, CurrencyUnit.Penny)
+  def *(times: Double): Price = Price(amount * times, unit)
+  def -(otherPrice: Price): Price = {
+    val remainingPositiveAmount = (inPennies().amount - otherPrice.inPennies().amount).max(0)
+    Price(remainingPositiveAmount, CurrencyUnit.Penny)
+  }
 
   def inPennies(): Price = unit match {
     case CurrencyUnit.Penny => this
